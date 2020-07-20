@@ -10,7 +10,7 @@ const GIPHY_URL = new RegExp(`/http(s?):\/\/media([0-9]+).giphy.com\/media\/`);
 let initialTweetButtonText = null;
 
 function findTextNode(node) {
-  let child = node.firstChild;
+  let child = node;
   while (child.nodeType !== document.TEXT_NODE && child != null) {
     child = child.firstChild;
   }
