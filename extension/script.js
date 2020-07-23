@@ -2,13 +2,11 @@
 const targetNode = document.body;
 const ATTACHMENTS_SELECTOR = `[data-testid="attachments"]`;
 const UNLABBELED_MEDIA_GROUP_SELECTOR = `[role="group"][aria-label="Media"]`;
-const BLOB_IMAGE_SELECTOR = `img[src^="blob"]`;
 const DISABLED_CLASS_NAME = `disable-tweet-for-missing-alt-text`;
 const TWEET_BUTTON_SELECTOR = `[data-testid^=tweetButton]`;
 // TODO: we should try and do some i18n here. We can detect the client
 // language and then ship a map of translations.
 const DISABLED_BUTTON_TEXT = "Add Alt Text";
-let initialTweetButtonText = null;
 // CSS Selector to find any groups within Twitter's attachment interface.
 // This will find *all* attachment types (images, GIFs, videos)
 const ATTACHMENT_GROUP_SELECTOR = `[data-testid="attachments"] [role="group"]`;
@@ -79,7 +77,7 @@ function dismissMissingLabels() {
 }
 // Callback function to execute when mutations are observed
 const callback = function () {
-    var _a;
+    var _a, _b;
     let hasMissingLabels = false;
     try {
         // Find any attachment groups
@@ -93,19 +91,13 @@ const callback = function () {
         // Check each group to see if it's a non-GIF image and whether
         // it already has alt text.
         for (let group of attachmentGroups) {
-            // We only care about attachment groups that contain user
-            // uploaded images. This is easy to discern from other media
-            // types like videos, but GIFs are slightly harder. One consistent
-            // difference I've seen is that Twitter uses `blob` URLs for user
-            // uploaded images, wheras with GIFs they point to the hosted GIF.
-            // So this queries for images with blob URLs
-            const userImage = group.querySelector(BLOB_IMAGE_SELECTOR);
+            const userImage = group.querySelector("img");
             if (userImage != null) {
                 // Now we need to verify whether there is any alt-text.
                 // Twitter doesn't add any unique identifiers to the DOM element
                 // that renders the ALT token. As far as I tested, Twitter doesn't
                 // translate the ALT token so this should work for all languages.
-                if (!((_a = group.textContent) === null || _a === void 0 ? void 0 : _a.startsWith("ALT"))) {
+                if (!(((_a = group.textContent) === null || _a === void 0 ? void 0 : _a.startsWith("ALT")) || ((_b = group.textContent) === null || _b === void 0 ? void 0 : _b.startsWith("GIFALT")))) {
                     hasMissingLabels = true;
                     return;
                 }
