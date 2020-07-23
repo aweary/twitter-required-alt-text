@@ -1,6 +1,6 @@
  {
     "name": "Twitter Required Alt Text",
-    "version": "1.0",
+    "version": "1.1",
     "icons": {
      "72": "icon-72x72.png",
      "96": "icon-96x96.png",
@@ -14,5 +14,5 @@
         "js": ["script.js"]
       }
     ],
-    "manifest_version": 2
+    "manifest_version": 3
   }
