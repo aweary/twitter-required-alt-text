@@ -1,0 +1,14 @@
+{
+  "name": "twitter-alt-text-chrome-ext",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/aweary/twitter-required-alt-text.git",
+  "author": "Brandon Dail <brandon.dail@discordapp.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm extension/script.js && tsc --p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
+}

@@ -8,9 +8,6 @@
      "512": "icon-512x512.png" 
     },
     "description": "Small extension that will force you to add alt text to images when tweeting",
-    "permissions": [
-      "activeTab"
-    ],
     "content_scripts": [
       {
         "matches": ["https://*.twitter.com/*", "http://*.twitter.com/*"],
