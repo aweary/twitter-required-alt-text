@@ -4,6 +4,7 @@ const ATTACHMENTS_SELECTOR = `[data-testid="attachments"]`;
 const UNLABBELED_MEDIA_GROUP_SELECTOR = `[role="group"][aria-label="Media"]`;
 const DISABLED_CLASS_NAME = `disable-tweet-for-missing-alt-text`;
 const TWEET_BUTTON_SELECTOR = `[data-testid^=tweetButton]`;
+const TWEET_TEXT_AREA_SELECTOR = `[data-testid^=tweetTextarea]`;
 // TODO: we should try and do some i18n here. We can detect the client
 // language and then ship a map of translations.
 const DISABLED_BUTTON_TEXT = "Add Alt Text";
@@ -33,6 +34,17 @@ document.head.appendChild(style);
 let isReportingMissingLabels = false;
 let tweetButton = null;
 let tweetButtonClone = null;
+function onKeyDown(event) {
+    if (event.key === "Enter" && event.metaKey) {
+        const tweetTextAreas = [
+            ...document.querySelectorAll(TWEET_TEXT_AREA_SELECTOR),
+        ];
+        if (document.activeElement != null &&
+            tweetTextAreas.indexOf(document.activeElement) !== -1) {
+            event.stopImmediatePropagation();
+        }
+    }
+}
 // Called when we've identified that image attachments
 // exist and they are missing required alt text. We want
 // to replace the Tweet button with a version of it that
@@ -62,6 +74,7 @@ function reportMissingLabels() {
     // Hide the real button
     tweetButton.style.display = "none";
     (_a = tweetButton.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(tweetButtonClone, tweetButton);
+    window.addEventListener("keydown", onKeyDown, { capture: true });
     isReportingMissingLabels = true;
 }
 function dismissMissingLabels() {
@@ -71,6 +84,7 @@ function dismissMissingLabels() {
         tweetButton.style.display = "";
         (_a = tweetButton.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(tweetButtonClone);
     }
+    window.removeEventListener("keydown", onKeyDown, { capture: true });
     tweetButton = null;
     tweetButtonClone = null;
     isReportingMissingLabels = false;
