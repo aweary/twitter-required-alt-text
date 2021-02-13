@@ -6,7 +6,8 @@
   "author": "Brandon Dail <brandon.dail@discordapp.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm extension/script.js && tsc --p tsconfig.json"
+    "build": "rm extension/script.js && tsc --p tsconfig.json",
+    "package": "rm -f source.zip extension.zip && zip -r source.zip . && cd extension && zip -r ../extension.zip ."
   },
   "devDependencies": {
     "typescript": "^3.9.7"
