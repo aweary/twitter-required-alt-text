@@ -111,7 +111,7 @@ const callback = function () {
                 // Twitter doesn't add any unique identifiers to the DOM element
                 // that renders the ALT token. As far as I tested, Twitter doesn't
                 // translate the ALT token so this should work for all languages.
-                if (!(((_a = group.textContent) === null || _a === void 0 ? void 0 : _a.startsWith("ALT")) || ((_b = group.textContent) === null || _b === void 0 ? void 0 : _b.startsWith("GIFALT")))) {
+                if (!(((_a = group.textContent) === null || _a === void 0 ? void 0 : _a.includes("ALT")) || ((_b = group.textContent) === null || _b === void 0 ? void 0 : _b.includes("GIFALT")))) {
                     hasMissingLabels = true;
                     return;
                 }

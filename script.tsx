@@ -125,8 +125,8 @@ const callback = function () {
         // translate the ALT token so this should work for all languages.
         if (
           !(
-            group.textContent?.startsWith("ALT") ||
-            group.textContent?.startsWith("GIFALT")
+            group.textContent?.includes("ALT") ||
+            group.textContent?.includes("GIFALT")
           )
         ) {
           hasMissingLabels = true;
